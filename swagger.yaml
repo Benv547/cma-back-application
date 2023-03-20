@@ -66,9 +66,12 @@ components:
           format: int64
         name:
           type: string
+        lastname:
+          type: string
         email:
           type: string
       required:
         - id
         - name
+        - lastname
         - email
