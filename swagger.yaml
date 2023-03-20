@@ -58,3 +58,17 @@ components:
         - hourlyStart
         - hourlyFinish
         - room
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - name
+        - email
