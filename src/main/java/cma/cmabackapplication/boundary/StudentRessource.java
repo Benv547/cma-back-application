@@ -1,6 +1,6 @@
-package cma.cmabackapplication.Boundary;
+package cma.cmabackapplication.boundary;
 
-import cma.cmabackapplication.Entity.Student;
+import cma.cmabackapplication.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StudentRessource extends JpaRepository<Student, String> {
