@@ -1,4 +1,4 @@
-package cma.cmabackapplication.Entity.Boundary;
+package cma.cmabackapplication.Boundary;
 
 import cma.cmabackapplication.Entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
