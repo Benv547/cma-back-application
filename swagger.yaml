@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: API day course
+  description: An API to allow students to retrieve their courses for the day
+  version: 1.0.0
+
+servers:
+  - url: https://api.url.com/
+    description: Serveur API (production)
+
+paths:
+  /students/{studentId}/day-course:
+    get:
+      summary: Get all day courses for a student
+      operationId: getCourseOfDay
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: List of day course
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components/schemas/Course'
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
+
+components:
+  schemas:
+    Cours:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        hourlyStart:
+          type: string
+          format: date-time
+        hourlyFinish:
+          type: string
+          format: date-time
+        room:
+          type: string
+      required:
+        - id
+        - name
+        - hourlyStart
+        - hourlyFinish
+        - room
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - name
+        - lastname
+        - email
