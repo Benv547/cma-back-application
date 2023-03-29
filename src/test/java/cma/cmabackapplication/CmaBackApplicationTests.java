@@ -1,8 +1,8 @@
 package cma.cmabackapplication;
 
-import cma.cmabackapplication.Boundary.CourseRessource;
-import cma.cmabackapplication.Entity.Course;
-import cma.cmabackapplication.Entity.Student;
+import cma.cmabackapplication.boundary.CourseRessource;
+import cma.cmabackapplication.entity.Course;
+import cma.cmabackapplication.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
