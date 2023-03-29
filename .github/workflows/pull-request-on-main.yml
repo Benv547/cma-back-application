@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  lint-java-🧹:
+  lint-java:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Lint with Maven 🧹
         run: mvn spotless:check --batch-mode
 
-  build-and-test- 🤖:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
