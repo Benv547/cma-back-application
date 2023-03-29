@@ -18,6 +18,6 @@ jobs:
         with:
           java-version: '17'
       - name: Run Super-Linter
-        uses: github/super-linter@v5
+        uses: github/super-linter@v4.10.1
         env:
           VALIDATE_JAVA: true
