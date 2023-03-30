@@ -15,24 +15,37 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Long courseId) {
-        return ResponseEntity.ok(courseService.getCourseById(courseId));
+    public ResponseEntity<Course> getCourseById(@PathVariable String courseId) {
+        Course c = courseService.getCourseById(courseId);
+        if (c == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(c);
     }
 
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody CourseInput course) {
         Course c = new Course();
+        c.setName(course.getName());
+        c.setRoom(course.getRoom());
+        c.setHourlyFinish(course.getHourlyFinish());
+        c.setHourlyStart(course.getHourlyStart());
         return ResponseEntity.ok(courseService.createCourse(c));
     }
 
-    @PutMapping
-    public ResponseEntity<Course> updateCourse(@RequestBody CourseInput course) {
+    @PutMapping("/{courseId}")
+    public ResponseEntity<Course> updateCourse(@PathVariable String courseId, @RequestBody CourseInput course) {
         Course c = new Course();
+        c.setId(courseId);
+        c.setName(course.getName());
+        c.setRoom(course.getRoom());
+        c.setHourlyFinish(course.getHourlyFinish());
+        c.setHourlyStart(course.getHourlyStart());
         return ResponseEntity.ok(courseService.updateCourse(c));
     }
 
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable Long courseId) {
+    public ResponseEntity<Void> deleteCourse(@PathVariable String courseId) {
         courseService.deleteCourse(courseId);
         return ResponseEntity.ok().build();
     }
