@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+import java.util.UUID;
 
 
 @Entity
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Course {
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String name;
     private String hourlyStart;
     private String hourlyFinish;

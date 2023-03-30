@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseInput {
 
-    // TODO: change attributes to match Course entity (Jean)
-    private Long id;
     private String name;
-    private String description;
-    private String teacher;
+    private String hourlyStart;
+    private String hourlyFinish;
+    private String room;
+
 }
