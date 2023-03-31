@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API day course
-  description: An API to allow students to retrieve their courses for the day
+  description: An API to allow students to retrieve and manage their courses and student information
   version: 1.0.0
 
 servers:
@@ -28,15 +28,275 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: './components/schemas/Course'
+                  $ref: '#/components/schemas/Course'
         '400':
           description: Bad request
         '404':
           description: Student not found
 
+  /students:
+    post:
+      summary: Create a new student
+      operationId: createStudent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '201':
+          description: Student created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Bad request
+
+    get:
+      summary: Get all students
+      operationId: getAllStudents
+      responses:
+        '200':
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        '400':
+          description: Bad request
+
+  /students/{studentId}:
+    get:
+      summary: Get a student by ID
+      operationId: getStudentById
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Student found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
+    put:
+      summary: Update a student by ID
+      operationId: updateStudentById
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '200':
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
+
+    delete:
+      summary: Delete a student by ID
+      operationId: deleteStudentById
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Student deleted
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
+  /courses:
+    get:
+      summary: Get all courses
+      operationId: getAllCourses
+      responses:
+        '200':
+          description: List of all courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+
+    post:
+      summary: Create a new course
+      operationId: createCourse
+      requestBody:
+        description: Course object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Invalid input
+        '409':
+          description: Course already exists
+
+  '/courses/{courseId}':
+    get:
+      summary: Get a course by ID
+      operationId: getCourseById
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Course found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course not found
+
+    put:
+      summary: Update an existing course
+      operationId: updateCourse
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Course object to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: Course updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Invalid input
+        '404':
+          description: Course not found
+
+    delete:
+      summary: Delete a course
+      operationId: deleteCourse
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Course deleted
+        '404':
+          description: Course not found
+  /students/{studentId}/courses:
+    post:
+      summary: Add a course to a student
+      operationId: addCourseToStudent
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: courseId
+          in: body
+          required: true
+          description: The course object to add
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
+    delete:
+      summary: Delete a course to a student
+      operationId: deleteCourseToStudent
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: courseId
+          in: body
+          required: true
+          description: The course object to add
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '400':
+          description: Bad request
+        '404':
+          description: Student not found
 components:
   schemas:
-    Cours:
+    Course:
       type: object
       properties:
         id:
@@ -44,10 +304,10 @@ components:
           format: int64
         name:
           type: string
-        hourlyStart:
+        timeStampStart:
           type: string
           format: date-time
-        hourlyFinish:
+        duration:
           type: string
           format: date-time
         room:
@@ -55,8 +315,8 @@ components:
       required:
         - id
         - name
-        - hourlyStart
-        - hourlyFinish
+        - timeStampStart
+        - duration
         - room
     Student:
       type: object
@@ -66,12 +326,16 @@ components:
           format: int64
         name:
           type: string
-        lastname:
+        firstname:
           type: string
         email:
           type: string
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
       required:
         - id
         - name
-        - lastname
+        - firstname
         - email
