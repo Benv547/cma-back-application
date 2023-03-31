@@ -55,7 +55,7 @@ public class StudentControllerTest {
 
     @Test
     public void testGetStudent_ExpectFalse() throws Exception {
-        mockMvc.perform(get("/students/1"))
+        mockMvc.perform(get("/students/aecde-80820"))
                 .andExpect(status().isNotFound());
     }
 
