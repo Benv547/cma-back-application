@@ -16,7 +16,7 @@ import java.util.UUID;
 @Table(name = "Student")
 public class Student {
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String name;
     private String firstname;
     private String email;

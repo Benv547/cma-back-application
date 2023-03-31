@@ -52,6 +52,7 @@ public class CourseControllerTest {
     public void createCourse_ExpectTrue() throws Exception {
 
         CourseInput course = new CourseInput();
+        
         course.setName("Fake course");
         course.setRoom("Fake room");
         course.setHourlyStart("9:00");
