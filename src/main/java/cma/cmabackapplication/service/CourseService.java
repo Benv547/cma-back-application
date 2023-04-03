@@ -5,6 +5,8 @@ import cma.cmabackapplication.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CourseService {
 
@@ -38,5 +40,9 @@ public class CourseService {
 
     public void deleteCourse(String courseId) {
         ressource.deleteById(courseId);
+    }
+
+    public List<Course> getAllCourses() {
+        return ressource.findAll();
     }
 }

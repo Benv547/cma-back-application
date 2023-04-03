@@ -14,6 +14,11 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @GetMapping
+    public ResponseEntity<Iterable<Course>> getAllCourses() {
+        return ResponseEntity.ok(courseService.getAllCourses());
+    }
+
     @GetMapping("/{courseId}")
     public ResponseEntity<Course> getCourseById(@PathVariable String courseId) {
         Course c = courseService.getCourseById(courseId);
